@@ -17,12 +17,13 @@ namespace AdventOfCode
             char sign;
             int value;
             bool bFound = false, bFirstLoop = true;
+
             for (int i = 0; i < programInput.Length; ++i)
             {
                 sign = programInput[i][0];
                 value = int.Parse(programInput[i].Substring(1));
-
                 finalOutput += (sign.Equals('+') ? value : -value);
+
                 if (seenFrequencies.Contains(finalOutput))
                 {
                     Console.WriteLine("\n---");
@@ -43,12 +44,14 @@ namespace AdventOfCode
                         bFirstLoop = false;
                     }
 
+                    //Reset to -1, then ++i kicks in to make it 0 for next iteration
                     i = -1;
                 }
             }
 
             Console.WriteLine($"Part One Answer: {firstPassSummation}");
 
+            //Wait for user input so that we can actually see the answers before they vanish
             Console.ReadKey();
         }
     }
