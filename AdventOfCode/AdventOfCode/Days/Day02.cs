@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AdventOfCode.Utils;
 using System.IO;
-
+using System.Windows.Forms;
 
 namespace AdventOfCode.Days
 {
@@ -25,7 +25,6 @@ namespace AdventOfCode.Days
 
         public void Run(string[] args)
         {
-
             IsRunning = true;
             var programInput = File.ReadAllLines("Resources/input_day2.txt");
 
@@ -55,10 +54,8 @@ namespace AdventOfCode.Days
 
                     if (!bThreeFound && kvp.Value.Equals(3))
                     {
-                        _threeCount++;
-                        
+                        _threeCount++;                        
                         bThreeFound = true;
-                        continue;
                     }                    
                 }
 
@@ -66,6 +63,35 @@ namespace AdventOfCode.Days
             }
 
             Console.WriteLine($"Finished Analysing, Checksum determined as {Checksum}");
+
+            #region Part Two
+            
+            bool bFoundPairing = false; int counter = 0; string finalOutput = "";
+
+            for (int i = 0; i < programInput.Length && !bFoundPairing; ++i)
+            {
+                for (int j = i; j < programInput.Length; ++j)
+                {
+                    counter = 0;
+                    for (int k = 0; k < programInput[i].Length; ++k)
+                    {
+                        counter += (programInput[i][k] != programInput[j][k] ? 1 : 0);
+                    }
+                    if (counter == 1)
+                    {
+                        for (int k = 0; k < programInput[i].Length; ++k)
+                        {
+                            finalOutput += (programInput[i][k].Equals(programInput[j][k]) ? programInput[i][k].ToString() : "");
+                        }
+                        bFoundPairing = true;
+                        break;
+                    }
+                }
+            }
+
+            Console.WriteLine($"Hash Code: {finalOutput}");
+            
+            #endregion
 
 
             IsRunning = false;

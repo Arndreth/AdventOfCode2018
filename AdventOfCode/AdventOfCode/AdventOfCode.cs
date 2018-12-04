@@ -36,8 +36,7 @@ namespace AdventOfCode
                 } while (dayNumber == 0);
 
                
-                var dayTemplate = Type.GetType("AdventOfCode.Days.Day" + ((dayNumber < 10) ? $"0{dayNumber}" : $"{dayNumber}"));
-                    
+                var dayTemplate = Type.GetType("AdventOfCode.Days.Day" + ((dayNumber < 10) ? $"0{dayNumber}" : $"{dayNumber}"));                    
                 IAdventExecutable currentDay = dayTemplate != null ? (IAdventExecutable)Activator.CreateInstance(dayTemplate) : null;
                 currentDay?.Run(args);            
 
