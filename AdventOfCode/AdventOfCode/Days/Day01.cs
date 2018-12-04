@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace AdventOfCode
+using AdventOfCode.Utils;
+using System.IO;
+namespace AdventOfCode.Days
 {
-    class Program
+    public class Day01 : IAdventExecutable
     {
-        static void Main(string[] args)
+        public bool IsRunning { get; set; }
+
+        public void Run(string[] args)
         {
+            IsRunning = true;
             var programInput = File.ReadAllLines("Resources/input.txt");
-            List<int> seenFrequencies = new List<int>() {0};
-            int finalOutput = 0, firstPassSummation;
+            List<int> seenFrequencies = new List<int>() { 0 };
+            int finalOutput = 0, firstPassSummation = 0;
             char sign;
             int value;
-            bool bFound = false, bFirstLoop = true;
+            bool bFirstLoop = true;
 
             for (int i = 0; i < programInput.Length; ++i)
             {
@@ -53,6 +56,8 @@ namespace AdventOfCode
 
             //Wait for user input so that we can actually see the answers before they vanish
             Console.ReadKey();
+
+            IsRunning = false;
         }
     }
 }
