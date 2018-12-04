@@ -16,6 +16,7 @@ namespace AdventOfCode
             bool bAppRunning = true;
             while (bAppRunning)
             {
+                loopStart:
                 Console.Write("Which day would you like to run? ");
 
                 var dayNumber = 0;
@@ -33,15 +34,17 @@ namespace AdventOfCode
                         Console.WriteLine("Please enter a valid day");
                     }
                 } while (dayNumber == 0);
-                
 
-                IAdventExecutable currentDay = (IAdventExecutable)Activator.CreateInstance(Type.GetType("AdventOfCode.Days.Day" + ((dayNumber < 10) ? $"0{dayNumber}" : $"{dayNumber}")));
-                currentDay?.Run(args);
+               
+                var dayTemplate = Type.GetType("AdventOfCode.Days.Day" + ((dayNumber < 10) ? $"0{dayNumber}" : $"{dayNumber}"));
+                    
+                IAdventExecutable currentDay = dayTemplate != null ? (IAdventExecutable)Activator.CreateInstance(dayTemplate) : null;
+                currentDay?.Run(args);            
 
-                quit:
-                Console.WriteLine("Goodbye");
-                Thread.Sleep(1500);
             }
+            quit:
+            Console.WriteLine("Goodbye");
+            Thread.Sleep(1500);
         }
     }
 }
